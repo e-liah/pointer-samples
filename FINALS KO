@@ -1,0 +1,69 @@
+#include <iostream>
+#include <iomanip>
+#include <string.h>
+
+using namespace std;
+
+struct record{
+    char studentName[100];
+    char studentCourse[100];
+    int studentNumber, size;
+    double math, sci, prog;
+};
+
+void add(record& S);
+void find(record& S);
+void view(record& S);
+
+int main(){
+    add();
+    return 0;
+}
+
+void add(record& S){
+    cout << endl;
+    
+    cout << "Enter number of students: ";
+    cin >> S.size;
+    
+    cout << "ADD STUDENT" << endl;
+    cout << "Enter student name: ";
+    for (int i = 0; i < S.size; i++){
+        char name[100];
+        cin >> name;
+        cin.ignore();
+        S.studentName[i] = name;
+    }
+    
+    cout << "Enter Student number: ";
+    for (int i = 0; i < S.size; i++){
+        cin >> S.studentNumber;
+        cin.ignore();
+    }
+    
+    cout << "Enter course and year: ";
+    for (int i = 0; i < S.size; i++){
+        char courseYear[100];
+        cin >> courseYear;
+        cin.ignore();
+        S.studentCourse[i] = courseName;
+    }
+    
+    cout << "Enter grade in Math: ";
+    for (int i = 0; i < S.math; i++){
+        cin >> S.math;
+        cin.ignore();
+    }
+    
+    cout << "Enter grade in Science: ";
+    for (int i = 0; i < S.sci; i++){
+        cin >> S.sci;
+        cin.ignore();
+    }
+    
+    cout << "Enter grade in Programming: ";
+    for (int i = 0; i < S.prog; i++){
+        cin >> S.prog;
+        cin.ignore();
+    }
+}
