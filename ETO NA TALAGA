@@ -19,7 +19,7 @@ struct User{
 
 int menuInput;
 int arraySize;
-vector<User> users;
+vector<User> users; //array
 
 void askArraySize() {
     bool awaitingInput = true;
@@ -74,8 +74,8 @@ void showUser(User user) {
     cout << "Programming:" << user.programming << endl;
 }
 
-User getUser(string studentNumber) {
-    for (auto &user: users){
+User getUser(string studentNumber) { //user defined function from structure
+    for (auto &user: users){ // auto = ikaw bahala kung anong type to get
        if(user.studentNumber == studentNumber){
           return user;
        }
@@ -114,7 +114,8 @@ void addUser () {
     cout << "Programming:";
     cin >> programming;
     
-    users.push_back({
+    users.push_back({ //built in function ng vector; put the shits on the end
+    // store these in the users
         name,
         studentNumber,
         course,
