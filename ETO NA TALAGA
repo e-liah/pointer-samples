@@ -1,0 +1,148 @@
+#include <iostream>
+#include <iomanip>
+#include <string.h>
+#include <vector>
+// created by Eugene Francis Rebong
+// eugene999.dev@gmail.com
+// +639274122145
+using namespace std;
+
+struct User{             
+  string name;       
+  string studentNumber;
+  string course;
+  int year;
+  int math;
+  int science;
+  int programming;
+};    
+
+int menuInput;
+int arraySize;
+vector<User> users;
+
+void askArraySize() {
+    bool awaitingInput = true;
+    cout << "Enter Array Size:" << endl;
+    while(awaitingInput) {
+        cin >> arraySize;
+        cin.clear();
+        cin.ignore();
+        if(arraySize > 0 && arraySize < 64) {
+           awaitingInput = false;
+           users.resize(arraySize+1);
+        } else {
+            cout << "Enter size greater than 0 and less than 64:" << endl;
+        }
+    }
+}
+
+void menu () {
+    bool awaitingInput = true;
+    cout << "Menu: \n1.Add User\n2.View User\n3. Resize Array." << endl;
+    while(awaitingInput) {
+        cin >> menuInput;
+        cin.clear();
+        cin.ignore();
+        switch(menuInput) {
+            case 1:
+                cout << "Add User." << endl;
+                awaitingInput = false;
+            break;
+            case 2:
+                cout << "View User." << endl;
+                awaitingInput = false;
+            break;
+            case 3:
+                cout << "Resize Array." << endl;
+                awaitingInput = false;
+            break;
+            default:
+                cout << "Invalid Input. See menu:" << endl;
+            break;
+        }   
+    }
+}
+
+void showUser(User user) {
+    cout << "Student Name:" << user.name << endl;
+    cout << "Student Number:" << user.studentNumber << endl;
+    cout << "Course:" << user.course << endl;
+    cout << "Year:" << user.year << endl;
+    cout << "Math:" << user.math << endl;
+    cout << "Science:" << user.science << endl;
+    cout << "Programming:" << user.programming << endl;
+}
+
+User getUser(string studentNumber) {
+    for (auto &user: users){
+       if(user.studentNumber == studentNumber){
+          return user;
+       }
+    }
+}
+
+void selectUser() {
+    cout << "Student Number:";
+    string findStudent;
+    cin >> findStudent;
+    showUser(getUser(findStudent));
+}
+
+
+void addUser () {
+    string name;       
+    string studentNumber;
+    string course;
+    int year;
+    int math;
+    int science;
+    int programming;
+  
+    cout << "Student Name:";
+    cin >> name;
+    cout << "Student Number:";
+    cin >> studentNumber;
+    cout << "Course:";
+    cin >> course;
+    cout << "Year:";
+    cin >> year;
+    cout << "Math:";
+    cin >> math;
+    cout << "Science:";
+    cin >> science;
+    cout << "Programming:";
+    cin >> programming;
+    
+    users.push_back({
+        name,
+        studentNumber,
+        course,
+        year,
+        math,
+        science,
+        programming
+    });
+}
+
+int main () {
+start:
+    menu();
+    switch(menuInput) {
+        case 1:
+            addUser();
+            goto start;
+        break;
+        case 2:
+            selectUser();
+            goto start;
+        break;
+        case 3:
+            askArraySize();
+            goto start;
+        break;
+        default:
+            goto start;
+        break;
+    }
+} 
