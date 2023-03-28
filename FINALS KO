@@ -1,69 +1,196 @@
 #include <iostream>
 #include <iomanip>
 #include <string.h>
-
+#include <vector>
+// created by Eugene Francis Rebong
+// eugene999.dev@gmail.com
+// +639274122145
 using namespace std;
 
-struct record{
-    char studentName[100];
-    char studentCourse[100];
-    int studentNumber, size;
-    double math, sci, prog;
-};
+struct User{             
+  string name;       
+  string studentNumber;
+  string course;
+  int year;
+  int math;
+  int science;
+  int programming;
+};    
 
-void add(record& S);
-void find(record& S);
-void view(record& S);
+int menuInput;
+int arraySize;
+vector<User> users; //array
 
-int main(){
-    add();
-    return 0;
-}
+void menu () {
+    bool awaitingInput = true;
 
-void add(record& S){
+    cout << "=========================================" << endl; //41
+    cout << "*****************************************" << endl; //41
+    cout << "=========================================" << endl; //41
+    cout << "STUDENT RECORDS" << endl;
+    cout << "=========================================" << endl; //41
+    cout << "*****************************************" << endl; //41
+    cout << "=========================================" << endl; //41
+
+    cout << "\nMAIN MENU:" << endl;
+    cout << "1. Add Student" << endl;
+    cout << "2. Find Student" << endl;
+    cout << "3. Display All" << endl;
+    cout << "4. Exit" << endl;
+
     cout << endl;
-    
-    cout << "Enter number of students: ";
-    cin >> S.size;
-    
-    cout << "ADD STUDENT" << endl;
-    cout << "Enter student name: ";
-    for (int i = 0; i < S.size; i++){
-        char name[100];
-        cin >> name;
+    cout << "Enter your choice: ";
+
+    while(awaitingInput) {
+        cin >> menuInput;
+        cin.clear();
         cin.ignore();
-        S.studentName[i] = name;
-    }
-    
-    cout << "Enter Student number: ";
-    for (int i = 0; i < S.size; i++){
-        cin >> S.studentNumber;
-        cin.ignore();
-    }
-    
-    cout << "Enter course and year: ";
-    for (int i = 0; i < S.size; i++){
-        char courseYear[100];
-        cin >> courseYear;
-        cin.ignore();
-        S.studentCourse[i] = courseName;
-    }
-    
-    cout << "Enter grade in Math: ";
-    for (int i = 0; i < S.math; i++){
-        cin >> S.math;
-        cin.ignore();
-    }
-    
-    cout << "Enter grade in Science: ";
-    for (int i = 0; i < S.sci; i++){
-        cin >> S.sci;
-        cin.ignore();
-    }
-    
-    cout << "Enter grade in Programming: ";
-    for (int i = 0; i < S.prog; i++){
-        cin >> S.prog;
-        cin.ignore();
+        cout << "\n\n";
+        switch(menuInput) {
+            case 1:
+                cout << "=========================================\n"; //41
+                cout << "*****************************************\n"; //41
+                cout << "=========================================\n"; //41
+                cout << "ADD STUDENT" << endl;
+                cout << "=========================================\n"; //41
+                cout << "*****************************************\n"; //41
+                cout << "=========================================\n\n"; //41
+                awaitingInput = false;
+            break;
+            case 2:
+                cout << "=========================================\n"; //41
+                cout << "*****************************************\n"; //41
+                cout << "=========================================\n"; //41
+                cout << "FIND STUDENT" << endl;
+                cout << "=========================================\n"; //41
+                cout << "*****************************************\n"; //41
+                cout << "=========================================\n\n"; //41
+                awaitingInput = false;
+            break;
+            case 3:
+                cout << "=========================================\n"; //41
+                cout << "*****************************************\n"; //41
+                cout << "=========================================\n"; //41
+                cout << "DISPLAY ALL" << endl;
+                cout << "=========================================\n"; //41
+                cout << "*****************************************\n"; //41
+                cout << "=========================================\n\n"; //41
+                awaitingInput = false;
+            break;
+            //case 4: break;
+            default:
+                cout << "Invalid Input. See menu:" << endl;
+            break;
+        }   
     }
 }
+
+void addUser () {
+    string name;       
+    string studentNumber;
+    string course;
+    int year;
+    int math;
+    int science;
+    int programming;
+
+    bool awaitingInput = true;
+    cout << "Enter number of students: ";
+    while(awaitingInput) {
+        cin >> arraySize;
+        cin.clear();
+        cin.ignore();
+        if(arraySize > 0 && arraySize < 64) {
+           awaitingInput = false;
+           users.resize(arraySize+1);
+        }
+    }
+
+    cout << endl;
+  
+    for (int i = 0; i < arraySize; i++){
+      cout << "Student Name: ";
+      cin >> name;
+      cout << "Student Number: ";
+      cin >> studentNumber;
+      cout << "Course: ";
+      cin >> course;
+      cout << "Year: ";
+      cin >> year;
+      cout << "Math: ";
+      cin >> math;
+      cout << "Science: ";
+      cin >> science;
+      cout << "Programming: ";
+      cin >> programming;
+
+      cout << endl;
+      
+      users.push_back({ //built in function ng vector
+      // store these in the users
+          name,
+          studentNumber,
+          course,
+          year,
+          math,
+          science,
+          programming
+      });
+    }
+}
+
+void print(vector <int> const &users) {
+
+   for(int i=0; i < arraySize; i++)
+   cout << users.at(i) << ' ';
+}
+
+void showUser(User user) {
+    cout << "Student Name:" << user.name << endl;
+    cout << "Student Number:" << user.studentNumber << endl;
+    cout << "Course:" << user.course << endl;
+    cout << "Year:" << user.year << endl;
+    cout << "Math:" << user.math << endl;
+    cout << "Science:" << user.science << endl;
+    cout << "Programming:" << user.programming << endl;
+}
+
+
+User getUser(string studentNumber) { //user defined function from structure
+    for (auto &user: users){ 
+       if(user.studentNumber == studentNumber){
+          return user;
+       }
+    }
+}
+
+void selectUser() {
+    cout << "Student Number: ";
+    string findStudent;
+    cin >> findStudent;
+    showUser(getUser(findStudent));
+}
+
+int main () {
+  vector<int> users;
+  start:
+      menu();
+      switch(menuInput) {
+          case 1:
+              addUser();
+              goto start;
+          break;
+          case 2:
+              selectUser();
+              goto start;
+          break;
+          case 3:
+              //display all
+              goto start;
+          break;
+          case 4: break;
+          default:
+              goto start;
+          break;
+      }
+} 
